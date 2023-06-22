@@ -2,12 +2,17 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 35rem;
+  width: 30%;
+  min-width: 300px;
   height: 80%;
   background-color: white;
   opacity: 0.8;
   position: relative;
   z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 
   h1 {
     display: inline;
