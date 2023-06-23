@@ -66,6 +66,7 @@ const handler = NextAuth({
 
         if (!isValid) {
           await client.close();
+          throw new Error("Wrong password");
         }
 
         await client.close();
@@ -79,4 +80,4 @@ const handler = NextAuth({
   ],
 });
 
-export { handler as GET, handler as PUT };
+export { handler as GET, handler as POST };

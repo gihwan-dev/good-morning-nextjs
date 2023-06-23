@@ -24,6 +24,6 @@ export async function POST(req: NextRequest) {
       });
     }
   } catch (error) {
-    throw new Error("Something wrong!");
+    console.error(error);
   }
 }
