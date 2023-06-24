@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+
+  p {
+    font-size: 2rem;
+  }
+
+  span {
+    width: 10px;
+  }
+
+  .text-grey {
+    color: rgba(105, 105, 105, 1);
+  }
+
+  .text-black {
+    color: black;
+  }
+
+  .text-red {
+    color: red;
+  }
+
+}
+

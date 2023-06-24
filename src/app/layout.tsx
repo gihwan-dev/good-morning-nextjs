@@ -4,6 +4,7 @@ import "src/styles/globals.css";
 
 import MySessionProvider from "@/lib/session.provider";
 import { getServerSession } from "next-auth";
+import MainNav from "@/components/@main/main.nav";
 
 export const metadata = {
   title: "Create Next App",
@@ -33,6 +34,11 @@ export default async function RootLayout({
               zIndex: 0,
             }}
           />
+          {data !== null ? (
+            <header>
+              <MainNav />
+            </header>
+          ) : null}
           {data !== null ? main : auth}
           {children}
         </MySessionProvider>
