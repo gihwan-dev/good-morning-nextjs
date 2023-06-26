@@ -14,14 +14,15 @@ export const metadata = {
 
 export default async function RootLayout({
   children,
-  auth,
   main,
+  auth,
 }: {
-  auth: React.ReactNode;
   main: React.ReactNode;
+  auth: React.ReactNode;
   children: React.ReactNode;
 }) {
   const data = await getServerSession();
+
   return (
     <html lang="en">
       <body>
@@ -35,13 +36,17 @@ export default async function RootLayout({
               zIndex: 0,
             }}
           />
-          {data !== null ? (
-            <header>
-              <MainNav />
-              <SignOutButton />
-            </header>
-          ) : null}
-          {data !== null ? main : auth}
+          {data ? (
+            <>
+              <header>
+                <MainNav />
+                <SignOutButton />
+              </header>
+              main
+            </>
+          ) : (
+            auth
+          )}
           {children}
         </MySessionProvider>
       </body>

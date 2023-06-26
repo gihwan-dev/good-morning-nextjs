@@ -17,9 +17,10 @@ const SignOutButton = () => {
         border: "none",
         backgroundColor: "rgba(255, 255, 255, 0.56)",
         borderRadius: "20px",
+        cursor: "pointer",
       }}
       type={"button"}
-      onClick={() => signOut()}
+      onClick={async () => await signOut()}
     >
       sign out
     </button>
