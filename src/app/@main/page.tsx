@@ -1,9 +1,7 @@
-import { getServerSession } from "next-auth";
 import styles from "./page.module.scss";
 import MainTyping from "@/components/@main/home/typing/typing";
 
-const MainPage = async () => {
-  const data = await getServerSession();
+const MainPage = () => {
   return (
     <main className={styles.main}>
       <MainTyping

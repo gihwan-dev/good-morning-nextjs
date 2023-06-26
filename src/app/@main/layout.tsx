@@ -1,4 +1,5 @@
 import MainNav from "@/components/@main/main.nav";
+import SignOutButton from "@/components/@main/signout.button";
 
 export default function MainLayout({
   children,
@@ -6,11 +7,12 @@ export default function MainLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div>
+    <>
       <header>
         <MainNav />
+        <SignOutButton />
       </header>
       {children}
-    </div>
+    </>
   );
 }
