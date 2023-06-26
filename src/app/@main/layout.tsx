@@ -6,13 +6,5 @@ export default function MainLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <>
-      <header>
-        <MainNav />
-        <SignOutButton />
-      </header>
-      {children}
-    </>
-  );
+  return <>{children}</>;
 }
