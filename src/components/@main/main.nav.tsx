@@ -3,7 +3,7 @@
 import Link from "next/link";
 import styles from "./main.nav.module.scss";
 import { usePathname } from "next/navigation";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 const MainNav = () => {
   const pathname = usePathname();
@@ -13,44 +13,51 @@ const MainNav = () => {
   const settingNavRef = useRef<HTMLLIElement>(null);
   const historyNavRef = useRef<HTMLLIElement>(null);
 
-  console.log(pathname);
-  console.log(homeNavRef);
-  console.log(settingNavRef);
-  console.log(historyNavRef);
+  useEffect(() => {
+    setTimeout(() => {
+      console.log(pathname);
+      console.log(homeNavRef);
+      console.log(settingNavRef);
+      console.log(historyNavRef);
+      if (underline.current) {
+        if (pathname.startsWith("/")) {
+          if (homeNavRef.current) {
+            underline.current.style.left = "0";
+            underline.current.style.width =
+              homeNavRef.current.offsetWidth + "px";
+          }
+        }
 
-  if (underline.current) {
-    if (pathname.startsWith("/")) {
-      if (homeNavRef.current) {
-        underline.current.style.left = "0";
-        underline.current.style.width = homeNavRef.current.offsetWidth + "px";
-      }
-    }
+        if (pathname.startsWith("/setting")) {
+          if (homeNavRef.current && settingNavRef.current) {
+            underline.current.style.left =
+              homeNavRef.current.offsetWidth + 32 + "px";
+            underline.current.style.width =
+              settingNavRef.current.offsetWidth + "px";
+          }
+        }
 
-    if (pathname.startsWith("/setting")) {
-      if (homeNavRef.current && settingNavRef.current) {
-        underline.current.style.left =
-          homeNavRef.current.offsetWidth + 32 + "px";
-        underline.current.style.width =
-          settingNavRef.current.offsetWidth + "px";
+        if (pathname.startsWith("/history")) {
+          if (
+            settingNavRef.current &&
+            homeNavRef.current &&
+            historyNavRef.current
+          ) {
+            underline.current.style.left =
+              settingNavRef.current.offsetWidth +
+              homeNavRef.current.offsetWidth +
+              64 +
+              "px";
+            underline.current.style.width =
+              historyNavRef.current.offsetWidth + "px";
+          }
+        }
+        console.log(homeNavRef.current?.offsetWidth);
+        console.log(settingNavRef.current?.offsetWidth);
+        console.log(historyNavRef.current?.offsetWidth);
       }
-    }
-
-    if (pathname.startsWith("/history")) {
-      if (
-        settingNavRef.current &&
-        homeNavRef.current &&
-        historyNavRef.current
-      ) {
-        underline.current.style.left =
-          settingNavRef.current.offsetWidth +
-          homeNavRef.current.offsetWidth +
-          64 +
-          "px";
-        underline.current.style.width =
-          historyNavRef.current.offsetWidth + "px";
-      }
-    }
-  }
+    });
+  });
 
   return (
     <nav className={styles.nav}>
