@@ -51,7 +51,6 @@ const MainTyping: React.FC<{
     } else if (enteredSentence[index] === item) {
       return styles["text-black"];
     } else {
-      console.log(enteredSentence);
       return styles["text-red"];
     }
   };

@@ -38,16 +38,11 @@ export default async function RootLayout({
           />
           {data ? (
             <>
-              <header>
-                <MainNav />
-                <SignOutButton />
-              </header>
-              main
+              <MainNav />
+              <SignOutButton />
             </>
-          ) : (
-            auth
-          )}
-          {children}
+          ) : null}
+          {data ? main : auth}
         </MySessionProvider>
       </body>
     </html>

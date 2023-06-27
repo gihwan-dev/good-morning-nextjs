@@ -1,8 +1,12 @@
 .container {
+  padding: 0 1rem;
   display: flex;
+  position: relative;
+  flex-wrap: wrap;
 
   p {
     font-size: 2rem;
+    position: relative;
   }
 
   span {
@@ -20,6 +24,4 @@
   .text-red {
     color: red;
   }
-
 }
-

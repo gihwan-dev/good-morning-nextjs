@@ -13,6 +13,11 @@ const MainNav = () => {
   const settingNavRef = useRef<HTMLLIElement>(null);
   const historyNavRef = useRef<HTMLLIElement>(null);
 
+  console.log(pathname);
+  console.log(homeNavRef);
+  console.log(settingNavRef);
+  console.log(historyNavRef);
+
   if (underline.current) {
     if (pathname.startsWith("/")) {
       if (homeNavRef.current) {
