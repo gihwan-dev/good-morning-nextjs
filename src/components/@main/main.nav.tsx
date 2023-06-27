@@ -15,14 +15,11 @@ const MainNav = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      console.log(pathname);
-      console.log(homeNavRef);
-      console.log(settingNavRef);
-      console.log(historyNavRef);
       if (underline.current) {
         if (pathname.startsWith("/")) {
-          if (homeNavRef.current) {
-            underline.current.style.left = "0";
+          if (homeNavRef.current && underline.current) {
+            underline.current.style.left = "0px";
+            homeNavRef.current.offsetWidth + "px";
             underline.current.style.width =
               homeNavRef.current.offsetWidth + "px";
           }
@@ -52,9 +49,6 @@ const MainNav = () => {
               historyNavRef.current.offsetWidth + "px";
           }
         }
-        console.log(homeNavRef.current?.offsetWidth);
-        console.log(settingNavRef.current?.offsetWidth);
-        console.log(historyNavRef.current?.offsetWidth);
       }
     });
   });

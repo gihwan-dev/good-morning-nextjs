@@ -25,3 +25,20 @@
     color: red;
   }
 }
+
+.cursor {
+  border: 1px solid black;
+  position: relative;
+  left: 0;
+  height: 2rem;
+  animation: inAndOut 1s infinite;
+}
+
+@keyframes inAndOut {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

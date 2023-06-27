@@ -5,12 +5,9 @@ import styles from "./typing.module.scss";
 import { koreanKeyCodes } from "@/lib/const";
 
 const MainTyping: React.FC<{
-  target: string;
-}> = ({ target }) => {
+  targetSentence: string[];
+}> = ({ targetSentence }) => {
   // 입력된 키의 문자를 저장할 배열
-  const targetSentence = useMemo(() => {
-    return target.split("");
-  }, [target]);
 
   // 타이핑 해야하는 문자열
   const [enteredSentence, setEnteredSentence] = useState<string[]>([]);
@@ -66,6 +63,20 @@ const MainTyping: React.FC<{
   return (
     <section className={styles.container}>
       {targetSentence.map((item, index) => {
+        if (index === enteredSentence.length) {
+          return (
+            <>
+              <hr className={styles.cursor} key={Date.now()}></hr>
+              {item === " " ? (
+                <span key={index} />
+              ) : (
+                <p className={typingChecker(item, index)} key={index}>
+                  {item}
+                </p>
+              )}
+            </>
+          );
+        }
         if (item === " ") {
           return <span key={index} />;
         }
