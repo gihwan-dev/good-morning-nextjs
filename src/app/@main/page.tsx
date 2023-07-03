@@ -1,3 +1,4 @@
+import { getServerSession } from "next-auth";
 import styles from "./page.module.scss";
 import MainTyping from "@/components/@main/home/typing/typing";
 

@@ -21,7 +21,7 @@ const createUserHandler = async ({
   }
 
   const client = await connectToDatabase();
-  const collection = await client.db(DB_NAME).collection(COLLECTION_NAME);
+  const collection = client.db(DB_NAME).collection(COLLECTION_NAME);
 
   if (!collection) {
     await client.close();
