@@ -11,8 +11,6 @@ const MainTyping: React.FC<{
   const { data: session, status } = useSession();
   console.log(session);
 
-  // 입력된 키의 문자를 저장할 배열
-
   // 타이핑 해야하는 문자열
   const [enteredSentence, setEnteredSentence] = useState<string[]>([]);
 

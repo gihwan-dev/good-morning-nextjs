@@ -15,4 +15,19 @@
   h1 {
     display: inline;
   }
+
+  button {
+    border: none;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    color: black;
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  button:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+  }
 }

@@ -1,4 +1,3 @@
-import { getServerSession } from "next-auth";
 import styles from "./page.module.scss";
 import MainTyping from "@/components/@main/home/typing/typing";
 
@@ -9,9 +8,11 @@ const MainPage = () => {
     );
 
   return (
-    <main className={styles.main}>
-      <MainTyping targetSentence={target} />
-    </main>
+    <>
+      <main className={styles.main}>
+        <MainTyping targetSentence={target} />
+      </main>
+    </>
   );
 };
 
