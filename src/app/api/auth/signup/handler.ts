@@ -6,6 +6,7 @@ import { hashPassword } from "@/lib/auth";
 interface User extends WithId<Document> {
   email: string;
   password: string;
+  sentences: string[];
 }
 
 const createUserHandler = async ({
@@ -42,6 +43,7 @@ const createUserHandler = async ({
   const pushResult = await collection.insertOne({
     email: email,
     password: hashedPassword,
+    sentences: [],
   });
 
   return pushResult.acknowledged;

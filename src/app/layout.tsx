@@ -6,7 +6,6 @@ import MySessionProvider from "@/lib/session.provider";
 import { getServerSession } from "next-auth";
 import MainNav from "@/components/@main/main.nav";
 import SignOutButton from "@/components/@main/signout.button";
-import RootTemplate from "./template";
 
 export const metadata = {
   title: "Create Next App",
@@ -14,7 +13,6 @@ export const metadata = {
 };
 
 export default async function RootLayout({
-  children,
   main,
   auth,
 }: {

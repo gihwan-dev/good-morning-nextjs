@@ -1,7 +1,29 @@
 "use client";
 
-import { Typography } from "@mui/material";
-import { ChangeEvent, ChangeEventHandler, useState } from "react";
+import { CLIENT_SIDE_SERVER_URL } from "@/lib/const";
+import { Button, Typography } from "@mui/material";
+import { ChangeEvent, useState } from "react";
+
+const postSentence = async (sentence: string) => {
+  try {
+    const result = await fetch(`${CLIENT_SIDE_SERVER_URL}/sentence`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        sentence,
+      }),
+    });
+    if (!result || !result.ok) {
+      // do something.
+      throw new Error("Failed to post sentence. Try again...");
+    }
+  } catch (error) {
+    // do something.
+    console.error(error);
+  }
+};
 
 const SettingModal: React.FC<{
   onCloseHandler: () => void;
@@ -12,9 +34,10 @@ const SettingModal: React.FC<{
     setSentence(event.currentTarget.value);
   };
 
-  const onComplete = () => {
-    
+  const onComplete = async () => {
+    const result = await postSentence(sentence);
   };
+
   return (
     <>
       <Typography id="modal-modal-title" component={"h2"} variant="h6">
@@ -22,6 +45,7 @@ const SettingModal: React.FC<{
       </Typography>
       <label htmlFor="sentence">type your sentence.</label>
       <input
+        type="text"
         value={sentence}
         onChange={sentenceHandler}
         maxLength={100}
@@ -32,30 +56,8 @@ const SettingModal: React.FC<{
         }}
         id="sentence"
       />
-      <button
-        style={{
-          marginTop: "1rem",
-          border: "1px solid black",
-          backgroundColor: "white",
-          padding: "0.5rem 2rem",
-        }}
-        type="button"
-        onClick={onCloseHandler}
-      >
-        Close
-      </button>
-      <button
-        style={{
-          marginTop: "1rem",
-          border: "1px solid black",
-          backgroundColor: "white",
-          padding: "0.5rem 2rem",
-        }}
-        type={"button"}
-        onClick={() => {}}
-      >
-        Complete
-      </button>
+      <Button onClick={onCloseHandler}>Close</Button>
+      <Button onClick={onComplete}>Complete</Button>
     </>
   );
 };
