@@ -21,6 +21,7 @@ const SignIn: React.FC<{
   const passwordChangeHandler = (event: FormEvent<HTMLInputElement>) => {
     setPassword(event.currentTarget.value);
   };
+
   const onSubmitHandler = async (event: FormEvent<HTMLFormElement>) => {
     try {
       event.preventDefault();

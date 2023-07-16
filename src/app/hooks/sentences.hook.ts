@@ -1,5 +1,6 @@
 "use client";
 
+import { CLIENT_SIDE_SERVER_URL } from "@/lib/const";
 import useSWR, { Fetcher } from "swr";
 
 interface SentenceList {
@@ -10,10 +11,8 @@ const sentenceFetcher: Fetcher<SentenceList, string> = async (url: string) =>
   fetch(url).then(result => result.json());
 
 export const useSentences = () => {
-  const { SERVER_URL } = process.env;
-
   const { data, error, isLoading, mutate } = useSWR(
-    `${SERVER_URL}/sentence`,
+    `${CLIENT_SIDE_SERVER_URL}/sentence`,
     sentenceFetcher,
   );
 

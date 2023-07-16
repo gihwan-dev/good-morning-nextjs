@@ -1,12 +1,22 @@
 "use client";
 
-import { Box, Modal } from "@mui/material";
+import {
+  Box,
+  IconButton,
+  List,
+  ListItem,
+  ListItemText,
+  Modal,
+} from "@mui/material";
 import styles from "./handler.sentence.form.module.scss";
 import SettingModal from "./setting.modal/setting.modal";
 import { useState } from "react";
+import { useSentences } from "@/app/hooks/sentences.hook";
 
 const HandleSentenceForm = () => {
-  const [openModal, setOpenModal] = useState(true);
+  const [openModal, setOpenModal] = useState(false);
+
+  const { data, error, isLoading, mutate } = useSentences();
 
   const onCloseHandler = () => {
     setOpenModal(false);
@@ -39,9 +49,18 @@ const HandleSentenceForm = () => {
         <button type="button" onClick={onOpenHandler}>
           Add
         </button>
-        <ul>
-          <li>some sentence.</li>
-        </ul>
+        <List>
+          {!data
+            ? null
+            : data.sentences.map(item => {
+                return (
+                  <ListItem key={item}>
+                    <ListItemText primary={item} />
+                    <IconButton></IconButton>
+                  </ListItem>
+                );
+              })}
+        </List>
       </section>
     </>
   );

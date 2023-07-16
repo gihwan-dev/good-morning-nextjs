@@ -7,7 +7,37 @@ interface User {
   sentences: string[];
 }
 
-export const getSentenceHandler = async (email: string, sentence: string) => {
+export const getSentenceHandler = async (email: string) => {
+  try {
+    const { DB_NAME, COLLECTION_NAME } = process.env;
+
+    if (!DB_NAME || !COLLECTION_NAME) {
+      throw new Error("Can not access to database.");
+    }
+
+    const client = await connectToDatabase();
+
+    const collection = client.db(DB_NAME).collection<User>(COLLECTION_NAME);
+
+    const user = await collection.findOne({ email });
+
+    if (!user) {
+      throw new Error("Can not find your information. try again.");
+    }
+
+    return user.sentences;
+  } catch (error) {
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
+    throw new Error(String(error));
+  }
+};
+
+export const createSentenceHandler = async (
+  email: string,
+  sentence: string,
+) => {
   try {
     const { DB_NAME, COLLECTION_NAME } = process.env;
 

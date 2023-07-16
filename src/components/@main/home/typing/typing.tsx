@@ -3,22 +3,33 @@
 import { useEffect, useMemo, useState } from "react";
 import styles from "./typing.module.scss";
 import { koreanKeyCodes } from "@/lib/const";
-import { useSession } from "next-auth/react";
 
 const MainTyping: React.FC<{
-  targetSentence: string[];
-}> = ({ targetSentence }) => {
-  const { data: session, status } = useSession();
-  console.log(session);
-
+  savedSentence: string[];
+}> = ({ savedSentence }) => {
   // 타이핑 해야하는 문자열
   const [enteredSentence, setEnteredSentence] = useState<string[]>([]);
+
+  const [sentenceIndex, setSentenceIndex] = useState(0);
+
+  const updatedSavedSentence = useMemo(() => {
+    return savedSentence.map(item => item.split(""));
+  }, [savedSentence]);
 
   // 키 입력 받아 이벤트를 처리할 함수
   function keyDownHandler(event: globalThis.KeyboardEvent) {
     if (event.keyCode === 229 || koreanKeyCodes.includes(event.keyCode)) {
       event.preventDefault();
     }
+
+    if (event.keyCode === 13) {
+      setSentenceIndex(prev => {
+        const newIndex = prev + 1;
+        return newIndex;
+      });
+      setEnteredSentence([]);
+    }
+
     if (event.key.length === 1) {
       if (event.shiftKey) {
         setEnteredSentence(prevState => {
@@ -62,9 +73,16 @@ const MainTyping: React.FC<{
     };
   }, []);
 
+  let content = updatedSavedSentence[sentenceIndex];
+
+  if (sentenceIndex >= updatedSavedSentence.length) {
+    setSentenceIndex(0);
+    content = updatedSavedSentence[0];
+  }
+
   return (
     <section className={styles.container}>
-      {targetSentence.map((item, index) => {
+      {content.map((item, index) => {
         if (index === enteredSentence.length) {
           return (
             <>
