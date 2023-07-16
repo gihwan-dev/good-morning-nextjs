@@ -7,16 +7,18 @@ import {
   ListItem,
   ListItemText,
   Modal,
+  Typography,
 } from "@mui/material";
 import styles from "./handler.sentence.form.module.scss";
 import SettingModal from "./setting.modal/setting.modal";
 import { useState } from "react";
 import { useSentences } from "@/app/hooks/sentences.hook";
+import { Delete } from "@mui/icons-material";
 
 const HandleSentenceForm = () => {
   const [openModal, setOpenModal] = useState(false);
 
-  const { data, error, isLoading, mutate } = useSentences();
+  const { data } = useSentences();
 
   const onCloseHandler = () => {
     setOpenModal(false);
@@ -49,18 +51,31 @@ const HandleSentenceForm = () => {
         <button type="button" onClick={onOpenHandler}>
           Add
         </button>
-        <List>
-          {!data
-            ? null
-            : data.sentences.map(item => {
-                return (
-                  <ListItem key={item}>
-                    <ListItemText primary={item} />
-                    <IconButton></IconButton>
-                  </ListItem>
-                );
-              })}
-        </List>
+        <Box
+          width={"100%"}
+          display={"flex"}
+          flexDirection={"column"}
+          alignItems={"center"}
+        >
+          <List
+            sx={{
+              width: "80%",
+            }}
+          >
+            {!data
+              ? null
+              : data.sentences.map(item => {
+                  return (
+                    <ListItem key={item}>
+                      <Typography fontSize={"1.3rem"}>{item}</Typography>
+                      <IconButton onClick={() => {}} size="large">
+                        <Delete />
+                      </IconButton>
+                    </ListItem>
+                  );
+                })}
+          </List>
+        </Box>
       </section>
     </>
   );
