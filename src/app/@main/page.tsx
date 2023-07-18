@@ -1,7 +1,6 @@
 import { getSentence } from "@/lib/sentence";
 import styles from "./page.module.scss";
 import MainTyping from "@/components/@main/home/typing/typing";
-import { useState } from "react";
 
 const MainPage = async () => {
   const data = await getSentence();

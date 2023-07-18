@@ -1,16 +1,29 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import styles from "./typing.module.scss";
 import { koreanKeyCodes } from "@/lib/const";
+import { useRecoilState } from "recoil";
+import { typingState } from "@/recoil/atom";
+
+const checkIsEqual = (enteredSentence: string[], targetSentence: string[]) => {
+  const strEnteredSentence = enteredSentence.join("");
+
+  const strTargetSentence = targetSentence.join("");
+
+  if (strTargetSentence === strEnteredSentence) {
+    return true;
+  }
+  return false;
+};
 
 const MainTyping: React.FC<{
   savedSentence: string[];
 }> = ({ savedSentence }) => {
   // 타이핑 해야하는 문자열
   const [enteredSentence, setEnteredSentence] = useState<string[]>([]);
-
   const [sentenceIndex, setSentenceIndex] = useState(0);
+  const [typingAmount, setTypingAmount] = useRecoilState(typingState);
 
   const updatedSavedSentence = useMemo(() => {
     return savedSentence.map(item => item.split(""));
@@ -24,8 +37,7 @@ const MainTyping: React.FC<{
 
     if (event.keyCode === 13) {
       setSentenceIndex(prev => {
-        const newIndex = prev + 1;
-        return newIndex;
+        return prev + 1;
       });
       setEnteredSentence([]);
     }
