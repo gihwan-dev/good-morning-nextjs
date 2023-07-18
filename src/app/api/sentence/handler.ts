@@ -69,3 +69,32 @@ export const createSentenceHandler = async (
     return NextResponse.json({ message }, { status: 400 });
   }
 };
+
+export const deleteSentenceHandler = async (email: string, index: number) => {
+  const { DB_NAME, COLLECTION_NAME } = process.env;
+
+  if (!DB_NAME || !COLLECTION_NAME) {
+    throw new Error("Failed to get database info.");
+  }
+
+  const client = await connectToDatabase();
+
+  const collection = client.db(DB_NAME).collection<User>(COLLECTION_NAME);
+
+  const user = await collection.findOne({ email });
+
+  if (!user) {
+    throw new Error("Failed to find your account.");
+  }
+
+  const existingSentence = user.sentences;
+
+  const updatedSentence = existingSentence.filter((_, existingIndex) => {
+    return existingIndex !== index;
+  });
+
+  return await collection.updateOne(
+    { email },
+    { $set: { sentences: updatedSentence } },
+  );
+};

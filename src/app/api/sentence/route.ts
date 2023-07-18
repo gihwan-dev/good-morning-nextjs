@@ -1,11 +1,14 @@
 import { Session, getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { createSentenceHandler, getSentenceHandler } from "./handler";
-import { STATUS_CODES } from "http";
 import { StatusCodes } from "http-status-codes";
 
 export interface PostSentenceDTO {
   sentence: string;
+}
+
+export interface DeleteSentenceDTO {
+  index: number;
 }
 
 type SessionWithUser = Session & {
@@ -14,7 +17,9 @@ type SessionWithUser = Session & {
   };
 };
 
-const checkJwtExisting = (jwt: Session | null): jwt is SessionWithUser => {
+export const checkJwtExisting = (
+  jwt: Session | null,
+): jwt is SessionWithUser => {
   return !!(jwt && jwt.user && jwt.user.email);
   /*
   !! 연산자의 사용 이유는 우선 해당 return 문을 불리언 값으로 변경 후 이를 한번 더 역전시켜 값의 불리언값을 반환하기 위해서다.
