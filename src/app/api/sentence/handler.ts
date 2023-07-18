@@ -71,36 +71,30 @@ export const createSentenceHandler = async (
 };
 
 export const deleteSentenceHandler = async (email: string, index: number) => {
-  try {
-    const { DB_NAME, COLLECTION_NAME } = process.env;
+  const { DB_NAME, COLLECTION_NAME } = process.env;
 
-    if (!DB_NAME || !COLLECTION_NAME) {
-      throw new Error("Failed to get database info.");
-    }
-
-    const client = await connectToDatabase();
-
-    const collection = client.db(DB_NAME).collection<User>(COLLECTION_NAME);
-
-    const user = await collection.findOne({ email });
-
-    if (!user) {
-      throw new Error("Failed to find your account.");
-    }
-
-    const existingSentence = user.sentences;
-
-    const updatedSentence = existingSentence.filter(
-      (_, existingIndex) => existingIndex !== index,
-    );
-
-    const updateResult = await collection.updateOne(
-      { email },
-      { $set: { sentences: updatedSentence } },
-    );
-
-    return updateResult;
-  } catch (error) {
-    throw new Error("Something wrong");
+  if (!DB_NAME || !COLLECTION_NAME) {
+    throw new Error("Failed to get database info.");
   }
+
+  const client = await connectToDatabase();
+
+  const collection = client.db(DB_NAME).collection<User>(COLLECTION_NAME);
+
+  const user = await collection.findOne({ email });
+
+  if (!user) {
+    throw new Error("Failed to find your account.");
+  }
+
+  const existingSentence = user.sentences;
+
+  const updatedSentence = existingSentence.filter((_, existingIndex) => {
+    return existingIndex !== index;
+  });
+
+  return await collection.updateOne(
+    { email },
+    { $set: { sentences: updatedSentence } },
+  );
 };

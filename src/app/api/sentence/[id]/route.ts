@@ -6,7 +6,7 @@ import { deleteSentenceHandler } from "../handler";
 
 export async function DELETE(
   req: Request,
-  { params }: { params: { id: number } },
+  { params }: { params: { id: string } },
 ) {
   try {
     const jwt = await getServerSession();
@@ -22,9 +22,10 @@ export async function DELETE(
       );
     }
 
-    console.log(params);
-
-    const result = await deleteSentenceHandler(jwt.user.email, params.id);
+    const result = await deleteSentenceHandler(
+      jwt.user.email,
+      Number(params.id),
+    );
 
     if (!result.acknowledged) {
       throw new Error("Failed to delete your sentence");
