@@ -36,6 +36,9 @@ const MainTyping: React.FC<{
     }
 
     if (event.keyCode === 13) {
+      if (checkIsEqual(enteredSentence, updatedSavedSentence[sentenceIndex])) {
+        setTypingAmount(typingAmount + 1);
+      }
       setSentenceIndex(prev => {
         return prev + 1;
       });

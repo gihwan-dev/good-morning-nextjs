@@ -6,6 +6,7 @@ import MySessionProvider from "@/lib/session.provider";
 import { getServerSession } from "next-auth";
 import MainNav from "@/components/@main/main.nav";
 import SignOutButton from "@/components/@main/signout.button";
+import RecoilProvider from "@/lib/recoil.provider";
 
 export const metadata = {
   title: "Create Next App",
@@ -25,24 +26,26 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body>
-        <MySessionProvider>
-          <Image
-            fill={true}
-            src={BackgroundImage}
-            alt={"background image"}
-            style={{
-              position: "absolute",
-              zIndex: 0,
-            }}
-          />
-          {data ? (
-            <>
-              <MainNav />
-              <SignOutButton />
-            </>
-          ) : null}
-          {data ? main : auth}
-        </MySessionProvider>
+        <RecoilProvider>
+          <MySessionProvider>
+            <Image
+              fill={true}
+              src={BackgroundImage}
+              alt={"background image"}
+              style={{
+                position: "absolute",
+                zIndex: 0,
+              }}
+            />
+            {data ? (
+              <>
+                <MainNav />
+                <SignOutButton />
+              </>
+            ) : null}
+            {data ? main : auth}
+          </MySessionProvider>
+        </RecoilProvider>
       </body>
     </html>
   );
