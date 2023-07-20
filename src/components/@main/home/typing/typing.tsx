@@ -11,10 +11,7 @@ const checkIsEqual = (enteredSentence: string[], targetSentence: string[]) => {
 
   const strTargetSentence = targetSentence.join("");
 
-  if (strTargetSentence === strEnteredSentence) {
-    return true;
-  }
-  return false;
+  return strTargetSentence === strEnteredSentence;
 };
 
 const MainTyping: React.FC<{
